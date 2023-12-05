@@ -15,7 +15,7 @@ const words = [
 let wins = 0
 let losses = 0
 let currentWord
-
+//DO NOT EDIT ANY CODE ABOVE
 class Word {
   constructor(word) {
     this.word = word
@@ -26,18 +26,52 @@ class Word {
   }
 
   // implement the guessLetter function:
-  // guessLetter(letter) {}
-
-  // implement the updateScreen function:
-  // updateScreen() {}
-
+  guessLetter(letter) { // guessLetter(letter) {}
+    let wordArray= this.word.split('')
+    let displayArray= this.displayWord.split('')
+    let correct= false
+    for (var i = 0; i < wordArray.length; i++){
+      if (wordArray[i] == letter){
+        correct = true
+        this.correctLetters.push(letter)
+        displayArray[i] = letter
+      }
+    }
+    if (correct === true) {
+      this.displayWord = displayArray.join('')
+    } else {
+      this.remainingGuesses---
+      this.incorrectLetters.push(letter)
+    }
+  }
+    // implement the updateScreen function:
+  updateScreen() { // updateScreen() {}
+      document.getElementById("remaining-guesses").textContent = this.remainingGuesses
+      document.getElementById("incorrect-letters").textContent = this.incorrectLetters
+      document.getElementById("word-to-guess").textContent = this.displayWord
+    }
   // implement the isGameOver function:
-  // isGameOver() {}
-
+  isGameOver() {   // isGameOver() {}
+    if (this.remainingGuesses <= 0 || this.word === this.displayWord){
+      return true
+    } else {
+      return false
+    }
+  }
   // implement the getWinOrLoss function:
-  // getWinOrLoss() {}
+  getWinOrLoss() {   // getWinOrLoss() {}
+    if (this.word === this.displayWord && this.remainingGuesses > 0) {
+      return 'win'
+    } else if (this.word !== this.displayWord && this.remainingGuesses <= 0) {
+      return 'loss'
+    } else {
+      return null
+    }
+  }
+  
 }
 
+//DO NOT EDIT ANY OF THIS BELOW
 function newGame() {
   const randomWord = words[Math.floor(Math.random() * words.length)]
   currentWord = new Word(randomWord)
